@@ -18,6 +18,7 @@
         tools:context=".ui.home.GameHomeFragment">
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="12dp"
@@ -32,21 +33,24 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="text"
+                android:text="@={viewModel.searchText}" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPagerGames"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:layout_marginBottom="12dp" />
+            android:layout_marginBottom="12dp"
+            app:setVisibility="@{viewModel.searchText}" />
 
         <me.relex.circleindicator.CircleIndicator3
             android:id="@+id/circleIndicatorViewPager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            app:ci_drawable="@color/black" />
+            app:ci_drawable="@color/black"
+            app:setVisibility="@{viewModel.searchText}" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewGames"

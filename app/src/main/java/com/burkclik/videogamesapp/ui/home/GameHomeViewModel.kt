@@ -19,6 +19,8 @@ class GameHomeViewModel @Inject constructor(private val gameUseCase: GameUseCase
     private val _games: MutableLiveData<List<Games>> = MutableLiveData()
     val games: LiveData<List<Games>> = _games
 
+    val searchText: MutableLiveData<String?> = MutableLiveData("")
+
     val navigation = Navigation()
 
     val itemClickListener: (Games) -> Unit = {
