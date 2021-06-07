@@ -2,6 +2,7 @@ package com.burkclik.videogamesapp.data
 
 import com.burkclik.videogamesapp.common.Resource
 import com.burkclik.videogamesapp.data.local.GameLocalDataSource
+import com.burkclik.videogamesapp.data.local.model.GameEntity
 import com.burkclik.videogamesapp.data.remote.GameDataSource
 import com.burkclik.videogamesapp.data.remote.model.GameDetailResponse
 import kotlinx.coroutines.flow.Flow
@@ -14,6 +15,9 @@ class GameDetailRepository @Inject constructor(
     private val gameDataSource: GameDataSource,
 ) {
     suspend fun updateFavorite(state: Boolean, id: Int) = gameLocalDataSource.addFavorite(state, id)
+
+    fun getGameById(gameId: Int): Flow<GameEntity> =
+        flow { emit(gameLocalDataSource.getGameById(gameId)) }
 
     fun fetchGameDetail(gameId: Int): Flow<Resource<GameDetailResponse>> = flow {
         emit(gameDataSource.getGameDetail(gameId))

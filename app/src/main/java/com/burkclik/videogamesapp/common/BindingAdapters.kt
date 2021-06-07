@@ -17,8 +17,8 @@ fun ImageView.imageUrl(imageUrl: String?) {
 }
 
 @BindingAdapter("app:setVisibility")
-fun setVisibility(view: View, demoText: String) {
-    view.isVisible = demoText.length < 3
+fun setVisibility(view: View, queryText: String) {
+    view.isVisible = queryText.length < 3
 }
 
 @BindingAdapter("app:favoriteIcon")

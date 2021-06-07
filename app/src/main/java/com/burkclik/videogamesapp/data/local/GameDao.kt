@@ -22,4 +22,7 @@ interface GameDao {
 
     @Query("UPDATE games SET favorite = :state WHERE id = :id")
     suspend fun updateFavorite(state: Boolean, id: Int)
+
+    @Query("SELECT * FROM games WHERE id = :id")
+    suspend fun getGameById(id: Int): GameEntity
 }

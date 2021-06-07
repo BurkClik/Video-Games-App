@@ -29,6 +29,7 @@ class GameDetailViewModel @Inject constructor(
 
     init {
         fetchGame()
+        getGameById()
     }
 
     private fun fetchGame() {
@@ -43,10 +44,18 @@ class GameDetailViewModel @Inject constructor(
         }
     }
 
+    fun getGameById() {
+        viewModelScope.launch {
+            gameDetailUseCase.getGameById(gameId).collect {
+                favoriteState.value = it.favorite
+            }
+        }
+    }
+
     fun showInfo() {
         viewModelScope.launch {
             try {
-                gameDetailUseCase.updateFavorite(true, gameId)
+                gameDetailUseCase.updateFavorite(!favoriteState.value!!, gameId)
             } catch (exception: Exception) {
                 Log.i("Burak", "${exception.message}")
             }

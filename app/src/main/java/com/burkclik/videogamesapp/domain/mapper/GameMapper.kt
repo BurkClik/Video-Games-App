@@ -14,6 +14,7 @@ class GameMapper @Inject constructor() : Mapper<GamesResponse, List<Games>> {
                 released = game.released,
                 backgroundImage = game.backgroundImage,
                 rating = game.rating.toString(),
+                favorite = false
             )
         }
     }

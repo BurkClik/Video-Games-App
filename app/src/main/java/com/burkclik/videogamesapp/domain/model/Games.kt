@@ -8,4 +8,5 @@ data class Games(
     val released: String,
     val backgroundImage: String,
     val rating: String,
+    val favorite: Boolean = false,
 ) : BindableItem
