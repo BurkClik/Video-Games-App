@@ -18,10 +18,19 @@
         android:id="@+id/gameDetailFragment"
         android:name="com.burkclik.videogamesapp.ui.detail.GameDetailFragment"
         android:label="fragment_game_detail"
-        tools:layout="@layout/fragment_game_detail" >
+        tools:layout="@layout/fragment_game_detail">
         <argument
             android:name="gameId"
             app:argType="integer"
             android:defaultValue="0" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.burkclik.videogamesapp.ui.favorite.FavoriteFragment"
+        android:label="fragment_favorite"
+        tools:layout="@layout/fragment_favorite">
+        <action
+            android:id="@+id/action_favoriteFragment_to_gameDetailFragment"
+            app:destination="@id/gameDetailFragment" />
     </fragment>
 </navigation>
