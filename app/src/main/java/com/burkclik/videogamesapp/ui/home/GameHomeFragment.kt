@@ -1,34 +1,30 @@
 package com.burkclik.videogamesapp.ui.home
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.view.isVisible
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.viewpager2.widget.ViewPager2
 import com.burkclik.videogamesapp.R
+import com.burkclik.videogamesapp.common.BaseFragment
+import com.burkclik.videogamesapp.common.GenericAdapter
 import com.burkclik.videogamesapp.common.navigation.NavigationObserver
 import com.burkclik.videogamesapp.databinding.FragmentGameHomeBinding
 import com.burkclik.videogamesapp.domain.model.Games
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class GameHomeFragment : Fragment() {
+class GameHomeFragment : BaseFragment() {
     private var _binding: FragmentGameHomeBinding? = null
     private val binding get() = _binding!!
 
     private val imagesList: MutableList<Games> = mutableListOf()
     private var gameList: MutableList<Games> = mutableListOf()
 
-    private val viewModel: GameHomeViewModel by viewModels()
+    override val viewModel: GameHomeViewModel by viewModels()
 
-    private val gameAdapter = GamesAdapter()
+    private val gameAdapter = GenericAdapter<Games>(R.layout.item_game)
     private val pagerAdapter = GamesHomeViewPagerAdapter()
 
     private val navigationObserver = NavigationObserver()
@@ -55,25 +51,37 @@ class GameHomeFragment : Fragment() {
 
         gameAdapter.itemClickListener = viewModel.itemClickListener
 
-        binding.viewPagerGames.apply {
-            adapter = pagerAdapter
-        }
-
         pagerAdapter.itemClickListener = viewModel.itemClickListener
+
+        binding.viewPagerGames.adapter = pagerAdapter
+
+        viewModel.searchText.observe(viewLifecycleOwner) {
+            viewModel.searchGame(it)
+        }
 
         // For döngüsünü viewModel'da yap!!
         viewModel.games.observe(viewLifecycleOwner) {
             gameList = it.toMutableList()
-            for (i in 0..2) {
-                imagesList.add(it[i])
-                gameList.removeFirst()
+            if (gameList.size >= 3) {
+                for (i in 0..2) {
+                    if (imagesList.size < 3) {
+                        imagesList.add(it[i])
+                    }
+                    gameList.removeFirst()
+                }
+                if (pagerAdapter.itemCount == 0) {
+                    pagerAdapter.submitList(imagesList)
+                }
+                binding.circleIndicatorViewPager.setViewPager(binding.viewPagerGames)
+                gameAdapter.submitList(gameList)
+            } else {
+                imagesList.clear()
+                gameAdapter.submitList(gameList)
             }
-            pagerAdapter.submitList(imagesList)
-            binding.circleIndicatorViewPager.setViewPager(binding.viewPagerGames)
-            gameAdapter.submitList(gameList)
         }
     }
 
+    // change with onPause
     override fun onDestroyView() {
         imagesList.clear()
         super.onDestroyView()

@@ -23,6 +23,8 @@ class GameDetailViewModel @Inject constructor(
     private val _game: MutableLiveData<GameDetail> = MutableLiveData()
     val game: LiveData<GameDetail> = _game
 
+    val favoriteState: MutableLiveData<Boolean> = MutableLiveData(false)
+
     private val gameId: Int = savedStateHandle["gameId"]!!
 
     init {
@@ -37,6 +39,16 @@ class GameDetailViewModel @Inject constructor(
                     is Resource.Error -> Log.i("Burak", "${resource.exception?.message}")
                     Resource.Loading -> Log.i("Burak", "Loading")
                 }
+            }
+        }
+    }
+
+    fun showInfo() {
+        viewModelScope.launch {
+            try {
+                gameDetailUseCase.updateFavorite(true, gameId)
+            } catch (exception: Exception) {
+                Log.i("Burak", "${exception.message}")
             }
         }
     }
