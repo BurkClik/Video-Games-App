@@ -1,4 +1,4 @@
-package com.burkclik.videogamesapp.domain
+package com.burkclik.videogamesapp.domain.mapper
 
 import com.burkclik.videogamesapp.common.Mapper
 import com.burkclik.videogamesapp.data.remote.model.GameDetailResponse
