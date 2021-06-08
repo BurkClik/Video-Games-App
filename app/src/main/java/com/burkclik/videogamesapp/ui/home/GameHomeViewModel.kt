@@ -22,6 +22,9 @@ class GameHomeViewModel @Inject constructor(
 
     val searchText: MutableLiveData<String?> = MutableLiveData("")
 
+    val _setVisibility: MutableLiveData<Boolean> = MutableLiveData()
+    val viewPagerVisibility: LiveData<Boolean> = _setVisibility
+
     val itemClickListener: (Games) -> Unit = {
         val action = GameHomeFragmentDirections.actionGameHomeFragmentToGameDetailFragment(it.id)
         navigation.navigate(action)
@@ -30,6 +33,7 @@ class GameHomeViewModel @Inject constructor(
     init {
         fetchGames()
     }
+
 
     private fun fetchGames() {
         viewModelScope.launch {

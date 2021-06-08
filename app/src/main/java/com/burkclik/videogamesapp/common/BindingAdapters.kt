@@ -21,6 +21,11 @@ fun setVisibility(view: View, queryText: String) {
     view.isVisible = queryText.length < 3
 }
 
+@BindingAdapter("app:noResult")
+fun noResult(view: View, state: Boolean) {
+    view.isVisible = state
+}
+
 @BindingAdapter("app:favoriteIcon")
 fun setFavoriteIcon(image: ImageView, state: Boolean) {
     if (!state) {

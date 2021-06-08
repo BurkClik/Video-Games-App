@@ -61,6 +61,7 @@ class GameHomeFragment : BaseFragment() {
 
         // For döngüsünü viewModel'da yap!!
         viewModel.games.observe(viewLifecycleOwner) {
+            viewModel._setVisibility.value = gameList.size == 0
             gameList = it.toMutableList()
             if (gameList.size >= 3) {
                 for (i in 0..2) {
