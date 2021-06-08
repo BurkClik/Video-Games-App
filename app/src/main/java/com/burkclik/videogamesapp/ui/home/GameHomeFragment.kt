@@ -57,7 +57,6 @@ class GameHomeFragment : BaseFragment() {
                     }
                 }
 
-
                 with(binding) {
                     circleIndicatorViewPager.setViewPager(viewPagerGames)
                 }

@@ -38,7 +38,7 @@
             android:gravity="center"
             android:text="@string/homeNoResultText"
             android:textAlignment="center"
-            app:isVisible="@{viewModel.noResult}"
+            app:isVisible="@{viewModel.noResultText}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textInputLayoutSearch"
             tools:visibility="visible" />

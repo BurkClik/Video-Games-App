@@ -23,8 +23,8 @@ class GameHomeViewModel @Inject constructor(
     private val _loadingState: MutableLiveData<Boolean> = MutableLiveData()
     val loadingState: LiveData<Boolean> = _loadingState
 
-    private val _noResult: MutableLiveData<Boolean> = MutableLiveData()
-    val noResult: LiveData<Boolean> = _noResult
+    private val _noResultText: MutableLiveData<Boolean> = MutableLiveData()
+    val noResultText: LiveData<Boolean> = _noResultText
 
     private var permList: List<Games> = listOf()
 
@@ -51,7 +51,7 @@ class GameHomeViewModel @Inject constructor(
                     is Resource.Error -> Log.i("Burak", "${resource.exception?.message}")
                     is Resource.Loading -> {
                         _loadingState.value = true
-                        _noResult.value = false
+                        _noResultText.value = false
                     }
                 }
             }
@@ -63,7 +63,7 @@ class GameHomeViewModel @Inject constructor(
             gameUseCase.searchGames(search).collect {
                 if (searchText.value!!.length >= 3) {
                     _games.value = it
-                    _noResult.value = it.isEmpty()
+                    _noResultText.value = it.isEmpty()
                 } else if (_games.value?.size != 20) {
                     _games.value = permList
                 }
