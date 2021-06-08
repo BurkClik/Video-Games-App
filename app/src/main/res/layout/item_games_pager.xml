@@ -5,7 +5,7 @@
     <data>
 
         <variable
-            name="game"
+            name="baseModel"
             type="com.burkclik.videogamesapp.domain.model.Games" />
     </data>
 
@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:scaleType="centerCrop"
-            app:imageUrl="@{game.backgroundImage}"
+            app:imageUrl="@{baseModel.backgroundImage}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -31,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/black"
-            android:text="@{game.name}"
+            android:text="@{baseModel.name}"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="16sp"

@@ -20,7 +20,7 @@ class GameHomeFragment : BaseFragment() {
     override val viewModel: GameHomeViewModel by viewModels()
 
     private val gameAdapter = GenericAdapter<Games>(R.layout.item_game)
-    private val pagerAdapter = GamesHomeViewPagerAdapter()
+    private val pagerAdapter = GenericAdapter<Games>(R.layout.item_games_pager)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
