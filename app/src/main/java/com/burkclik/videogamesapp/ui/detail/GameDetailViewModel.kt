@@ -23,22 +23,26 @@ class GameDetailViewModel @Inject constructor(
     private val _game: MutableLiveData<GameDetail> = MutableLiveData()
     val game: LiveData<GameDetail> = _game
 
-    val favoriteState: MutableLiveData<Boolean> = MutableLiveData(false)
+    private val favoriteState: MutableLiveData<Boolean> = MutableLiveData()
+    fun getFavoriteState(): LiveData<Boolean> = favoriteState
+
+    private val loadingState: MutableLiveData<Boolean> = MutableLiveData()
+    fun getLoadingState(): LiveData<Boolean> = loadingState
 
     private val gameId: Int = savedStateHandle["gameId"]!!
 
-    init {
-        fetchGame()
-        getGameById()
-    }
-
-    private fun fetchGame() {
+    fun fetchGame() {
         viewModelScope.launch {
             gameDetailUseCase.fetchDetailGame(gameId).collect { resource ->
                 when (resource) {
-                    is Resource.Success -> _game.value = resource.data
+                    is Resource.Success -> {
+                        _game.value = resource.data
+                        loadingState.value = false
+                    }
                     is Resource.Error -> Log.i("Burak", "${resource.exception?.message}")
-                    Resource.Loading -> Log.i("Burak", "Loading")
+                    is Resource.Loading -> {
+                        loadingState.value = true
+                    }
                 }
             }
         }

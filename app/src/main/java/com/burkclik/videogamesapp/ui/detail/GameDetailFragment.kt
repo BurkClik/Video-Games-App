@@ -12,18 +12,24 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class GameDetailFragment : Fragment() {
 
-    private var _binding: FragmentGameDetailBinding? = null
-    private val binding get() = _binding!!
-
+    private lateinit var binding: FragmentGameDetailBinding
     private val viewModel: GameDetailViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentGameDetailBinding.inflate(inflater, container, false)
+        binding = FragmentGameDetailBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+        setUpViewModel()
         return binding.root
+    }
+
+    private fun setUpViewModel() {
+        with(viewModel) {
+            fetchGame()
+            getGameById()
+        }
     }
 }
