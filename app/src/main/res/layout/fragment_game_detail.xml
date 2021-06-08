@@ -7,9 +7,6 @@
             name="viewModel"
             type="com.burkclik.videogamesapp.ui.detail.GameDetailViewModel" />
 
-        <variable
-            name="color"
-            type="Boolean" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -17,6 +14,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.detail.GameDetailFragment">
+
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/contentLoadingProgressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:isVisible="@{viewModel.loadingState}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageViewGame"
@@ -34,9 +42,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            android:button="@drawable/favorite_icon_state"
             android:checked="@{viewModel.favoriteState}"
             android:onClick="@{() -> viewModel.showInfo()}"
-            android:button="@drawable/favorite_icon_state"
             app:layout_constraintBottom_toBottomOf="@id/imageViewGame"
             app:layout_constraintEnd_toEndOf="@id/imageViewGame" />
 
