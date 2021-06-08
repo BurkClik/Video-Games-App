@@ -17,11 +17,7 @@ class FavoriteViewModel @Inject constructor(private val favoriteUseCase: Favorit
     private val _favorites: MutableLiveData<List<Games?>> = MutableLiveData()
     val favorites: LiveData<List<Games?>> = _favorites
 
-    init {
-        getFavorites()
-    }
-
-    private fun getFavorites() {
+    fun getFavorites() {
         viewModelScope.launch {
             favoriteUseCase.getFavorites().collect {
                 _favorites.value = it

@@ -15,8 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class FavoriteFragment : BaseFragment() {
-    private var _binding: FragmentFavoriteBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentFavoriteBinding
 
     override val viewModel: FavoriteViewModel by viewModels()
 
@@ -25,23 +24,28 @@ class FavoriteFragment : BaseFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
+    ): View {
+        binding = FragmentFavoriteBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+        setUpView()
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    private fun setUpView() {
+        with(viewModel) {
+            getFavorites()
 
-        binding.recyclerViewFavorites.adapter = favoriteAdapter
-        binding.recyclerViewFavorites.addItemDecoration(GamesAdapterDecoration())
+            binding.recyclerViewFavorites.apply {
+                adapter = favoriteAdapter
+                addItemDecoration(GamesAdapterDecoration())
+            }
 
-        favoriteAdapter.itemClickListener = viewModel.itemClickListener
+            favoriteAdapter.itemClickListener = itemClickListener
 
-        viewModel.favorites.observe(viewLifecycleOwner) {
-            favoriteAdapter.submitList(it)
+            favorites.observe(viewLifecycleOwner) {
+                favoriteAdapter.submitList(it)
+            }
         }
     }
 }
