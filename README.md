@@ -11,6 +11,7 @@
 - [Hilt](https://dagger.dev/hilt/) - 
 - [Flow](https://developer.android.com/kotlin/flow)
 - [Glide](https://github.com/bumptech/glide)
+- [CircleIndicator](https://github.com/ongakuer/CircleIndicator) - A lightweight indicator like in nexus 5 launcher
 
 ### Architecture
 Video Games App is based on MVVM architecture and a repository pattern.
