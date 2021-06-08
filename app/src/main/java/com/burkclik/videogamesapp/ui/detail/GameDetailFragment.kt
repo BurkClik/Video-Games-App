@@ -4,16 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.burkclik.videogamesapp.common.BaseFragment
 import com.burkclik.videogamesapp.databinding.FragmentGameDetailBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class GameDetailFragment : Fragment() {
+class GameDetailFragment : BaseFragment() {
 
     private lateinit var binding: FragmentGameDetailBinding
-    private val viewModel: GameDetailViewModel by viewModels()
+    override val viewModel: GameDetailViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,6 +30,10 @@ class GameDetailFragment : Fragment() {
         with(viewModel) {
             fetchGame()
             getGameById()
+
+            errorLiveData.observe(viewLifecycleOwner) {
+                showSnack(it, requireView())
+            }
         }
     }
 }

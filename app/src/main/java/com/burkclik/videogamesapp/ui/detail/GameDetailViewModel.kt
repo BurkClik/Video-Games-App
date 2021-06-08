@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.burkclik.videogamesapp.common.BaseViewModel
 import com.burkclik.videogamesapp.common.Resource
 import com.burkclik.videogamesapp.domain.GameDetailUseCase
 import com.burkclik.videogamesapp.domain.model.GameDetail
@@ -19,15 +19,18 @@ class GameDetailViewModel @Inject constructor(
     private val gameDetailUseCase: GameDetailUseCase,
     savedStateHandle: SavedStateHandle,
 ) :
-    ViewModel() {
+    BaseViewModel() {
     private val _game: MutableLiveData<GameDetail> = MutableLiveData()
     val game: LiveData<GameDetail> = _game
 
-    private val favoriteState: MutableLiveData<Boolean> = MutableLiveData()
-    fun getFavoriteState(): LiveData<Boolean> = favoriteState
+    private val _favoriteState: MutableLiveData<Boolean> = MutableLiveData()
+    val favoriteState: LiveData<Boolean> = _favoriteState
 
-    private val loadingState: MutableLiveData<Boolean> = MutableLiveData()
-    fun getLoadingState(): LiveData<Boolean> = loadingState
+    private val _loadingState: MutableLiveData<Boolean> = MutableLiveData()
+    val loadingState: LiveData<Boolean> = _loadingState
+
+    private val _errorLiveData: MutableLiveData<String> = MutableLiveData()
+    val errorLiveData: LiveData<String> = _errorLiveData
 
     private val gameId: Int = savedStateHandle["gameId"]!!
 
@@ -37,11 +40,14 @@ class GameDetailViewModel @Inject constructor(
                 when (resource) {
                     is Resource.Success -> {
                         _game.value = resource.data
-                        loadingState.value = false
+                        _loadingState.value = false
                     }
-                    is Resource.Error -> Log.i("Burak", "${resource.exception?.message}")
+                    is Resource.Error -> {
+                        _errorLiveData.value = resource.exception?.message ?: ""
+                        _loadingState.value = false
+                    }
                     is Resource.Loading -> {
-                        loadingState.value = true
+                        _loadingState.value = true
                     }
                 }
             }
@@ -51,7 +57,7 @@ class GameDetailViewModel @Inject constructor(
     fun getGameById() {
         viewModelScope.launch {
             gameDetailUseCase.getGameById(gameId).collect {
-                favoriteState.value = it.favorite
+                _favoriteState.value = it.favorite
             }
         }
     }
@@ -59,7 +65,7 @@ class GameDetailViewModel @Inject constructor(
     fun showInfo() {
         viewModelScope.launch {
             try {
-                gameDetailUseCase.updateFavorite(!favoriteState.value!!, gameId)
+                gameDetailUseCase.updateFavorite(!_favoriteState.value!!, gameId)
             } catch (exception: Exception) {
                 Log.i("Burak", "${exception.message}")
             }

@@ -65,6 +65,10 @@ class GameHomeFragment : BaseFragment() {
             searchText.observe(viewLifecycleOwner) {
                 searchGame(it)
             }
+
+            errorLiveData.observe(viewLifecycleOwner) {
+                showSnack(it, view)
+            }
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.burkclik.videogamesapp.ui.home
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -26,6 +25,9 @@ class GameHomeViewModel @Inject constructor(
     private val _noResultText: MutableLiveData<Boolean> = MutableLiveData()
     val noResultText: LiveData<Boolean> = _noResultText
 
+    private val _errorLiveData: MutableLiveData<String> = MutableLiveData()
+    val errorLiveData: LiveData<String> = _errorLiveData
+
     private var permList: List<Games> = listOf()
 
     val searchText: MutableLiveData<String?> = MutableLiveData("")
@@ -48,7 +50,10 @@ class GameHomeViewModel @Inject constructor(
                         permList = resource.data
                         _loadingState.value = false
                     }
-                    is Resource.Error -> Log.i("Burak", "${resource.exception?.message}")
+                    is Resource.Error -> {
+                        _errorLiveData.value = resource.exception?.message ?: ""
+                        _loadingState.value = false
+                    }
                     is Resource.Loading -> {
                         _loadingState.value = true
                         _noResultText.value = false
