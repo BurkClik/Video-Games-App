@@ -15,4 +15,4 @@
 
 ### Architecture
 Video Games App is based on MVVM architecture and a repository pattern.
-<img src="https://cdn.discordapp.com/attachments/810216351427723356/851904374786752532/unknown.png" align="center" width="51%"/>
+<img src="https://user-images.githubusercontent.com/29648057/121263725-b91da000-c8be-11eb-904e-7c545f35e84f.png" align="center" width="51%"/>
