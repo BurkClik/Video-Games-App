@@ -9,7 +9,7 @@ import com.burkclik.videogamesapp.R
 import com.burkclik.videogamesapp.common.BaseFragment
 import com.burkclik.videogamesapp.common.GenericAdapter
 import com.burkclik.videogamesapp.databinding.FragmentGameHomeBinding
-import com.burkclik.videogamesapp.domain.model.Games
+import com.burkclik.videogamesapp.domain.model.Game
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,8 +19,8 @@ class GameHomeFragment : BaseFragment() {
 
     override val viewModel: GameHomeViewModel by viewModels()
 
-    private val gameAdapter = GenericAdapter<Games>(R.layout.item_game)
-    private val pagerAdapter = GenericAdapter<Games>(R.layout.item_games_pager)
+    private val gameAdapter = GenericAdapter<Game>(R.layout.item_game)
+    private val pagerAdapter = GenericAdapter<Game>(R.layout.item_games_pager)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

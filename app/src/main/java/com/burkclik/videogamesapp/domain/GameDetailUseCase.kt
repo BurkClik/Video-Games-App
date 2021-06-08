@@ -5,8 +5,8 @@ import com.burkclik.videogamesapp.common.map
 import com.burkclik.videogamesapp.data.GameDetailRepository
 import com.burkclik.videogamesapp.domain.mapper.GameDetailMapper
 import com.burkclik.videogamesapp.domain.mapper.GameEntityToGamesMapper
+import com.burkclik.videogamesapp.domain.model.Game
 import com.burkclik.videogamesapp.domain.model.GameDetail
-import com.burkclik.videogamesapp.domain.model.Games
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -33,7 +33,7 @@ class GameDetailUseCase @Inject constructor(
             .flowOn(Dispatchers.Default)
     }
 
-    fun getGameById(gameId: Int): Flow<Games> = gameDetailRepository
+    fun getGameById(gameId: Int): Flow<Game> = gameDetailRepository
         .getGameById(gameId)
         .map {
             gameEntityToGamesMapperMapper.mapFrom(it)

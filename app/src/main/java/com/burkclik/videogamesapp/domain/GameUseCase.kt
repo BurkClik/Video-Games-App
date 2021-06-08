@@ -7,7 +7,7 @@ import com.burkclik.videogamesapp.data.remote.model.GamesResponse
 import com.burkclik.videogamesapp.domain.mapper.GameEntityMapper
 import com.burkclik.videogamesapp.domain.mapper.GameEntityToGamesMapper
 import com.burkclik.videogamesapp.domain.mapper.GameMapper
-import com.burkclik.videogamesapp.domain.model.Games
+import com.burkclik.videogamesapp.domain.model.Game
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
@@ -22,7 +22,7 @@ class GameUseCase @Inject constructor(
     private val gameEntityMapper: GameEntityMapper,
     private val gameEntityToGamesMapper: GameEntityToGamesMapper,
 ) {
-    fun fetchGames(): Flow<Resource<List<Games>>> {
+    fun fetchGames(): Flow<Resource<List<Game>>> {
         return repository
             .fetchGames()
             .map { resource ->
@@ -41,7 +41,7 @@ class GameUseCase @Inject constructor(
             .saveGames(gameEntityMapper.mapFrom(games))
     }
 
-    fun searchGames(search: String?): Flow<List<Games>> {
+    fun searchGames(search: String?): Flow<List<Game>> {
         return repository
             .searchGame(search)
             .map {

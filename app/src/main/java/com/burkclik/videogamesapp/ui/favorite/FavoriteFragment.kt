@@ -9,7 +9,7 @@ import com.burkclik.videogamesapp.R
 import com.burkclik.videogamesapp.common.BaseFragment
 import com.burkclik.videogamesapp.common.GenericAdapter
 import com.burkclik.videogamesapp.databinding.FragmentFavoriteBinding
-import com.burkclik.videogamesapp.domain.model.Games
+import com.burkclik.videogamesapp.domain.model.Game
 import com.burkclik.videogamesapp.ui.home.GamesAdapterDecoration
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,7 +19,7 @@ class FavoriteFragment : BaseFragment() {
 
     override val viewModel: FavoriteViewModel by viewModels()
 
-    private val favoriteAdapter = GenericAdapter<Games>(R.layout.item_game)
+    private val favoriteAdapter = GenericAdapter<Game>(R.layout.item_game)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

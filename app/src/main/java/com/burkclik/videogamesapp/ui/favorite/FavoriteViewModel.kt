@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.burkclik.videogamesapp.common.BaseViewModel
 import com.burkclik.videogamesapp.domain.FavoriteUseCase
-import com.burkclik.videogamesapp.domain.model.Games
+import com.burkclik.videogamesapp.domain.model.Game
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -14,8 +14,8 @@ import javax.inject.Inject
 @HiltViewModel
 class FavoriteViewModel @Inject constructor(private val favoriteUseCase: FavoriteUseCase) :
     BaseViewModel() {
-    private val _favorites: MutableLiveData<List<Games?>> = MutableLiveData()
-    val favorites: LiveData<List<Games?>> = _favorites
+    private val _favorites: MutableLiveData<List<Game?>> = MutableLiveData()
+    val favorites: LiveData<List<Game?>> = _favorites
 
     fun getFavorites() {
         viewModelScope.launch {
@@ -25,7 +25,7 @@ class FavoriteViewModel @Inject constructor(private val favoriteUseCase: Favorit
         }
     }
 
-    val itemClickListener: (Games) -> Unit = {
+    val itemClickListener: (Game) -> Unit = {
         val action = FavoriteFragmentDirections.actionFavoriteFragmentToGameDetailFragment(it.id)
         navigation.navigate(action)
     }

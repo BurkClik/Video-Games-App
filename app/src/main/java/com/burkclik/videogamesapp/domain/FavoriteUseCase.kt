@@ -2,7 +2,7 @@ package com.burkclik.videogamesapp.domain
 
 import com.burkclik.videogamesapp.data.FavoriteRepository
 import com.burkclik.videogamesapp.domain.mapper.GameEntityToGamesMapper
-import com.burkclik.videogamesapp.domain.model.Games
+import com.burkclik.videogamesapp.domain.model.Game
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
@@ -13,7 +13,7 @@ class FavoriteUseCase @Inject constructor(
     private val favoriteRepository: FavoriteRepository,
     private val gameEntityToGamesMapper: GameEntityToGamesMapper,
 ) {
-    fun getFavorites(): Flow<List<Games>> =
+    fun getFavorites(): Flow<List<Game>> =
         favoriteRepository
             .fetchFavorites()
             .map {

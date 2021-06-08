@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.burkclik.videogamesapp.common.BaseViewModel
 import com.burkclik.videogamesapp.common.Resource
 import com.burkclik.videogamesapp.domain.GameUseCase
-import com.burkclik.videogamesapp.domain.model.Games
+import com.burkclik.videogamesapp.domain.model.Game
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -16,8 +16,8 @@ import javax.inject.Inject
 class GameHomeViewModel @Inject constructor(
     private val gameUseCase: GameUseCase,
 ) : BaseViewModel() {
-    private val _games: MutableLiveData<List<Games>> = MutableLiveData()
-    val games: LiveData<List<Games>> = _games
+    private val _games: MutableLiveData<List<Game>> = MutableLiveData()
+    val games: LiveData<List<Game>> = _games
 
     private val _loadingState: MutableLiveData<Boolean> = MutableLiveData()
     val loadingState: LiveData<Boolean> = _loadingState
@@ -28,11 +28,11 @@ class GameHomeViewModel @Inject constructor(
     private val _errorLiveData: MutableLiveData<String> = MutableLiveData()
     val errorLiveData: LiveData<String> = _errorLiveData
 
-    private var permList: List<Games> = listOf()
+    private var permList: List<Game> = listOf()
 
     val searchText: MutableLiveData<String?> = MutableLiveData("")
 
-    val itemClickListener: (Games) -> Unit = {
+    val itemClickListener: (Game) -> Unit = {
         val action = GameHomeFragmentDirections.actionGameHomeFragmentToGameDetailFragment(it.id)
         navigation.navigate(action)
     }
