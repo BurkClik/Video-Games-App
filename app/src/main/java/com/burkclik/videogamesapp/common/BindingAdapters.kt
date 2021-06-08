@@ -21,8 +21,8 @@ fun setVisibility(view: View, queryText: String) {
     view.isVisible = queryText.length < 3
 }
 
-@BindingAdapter("app:noResult")
-fun noResult(view: View, state: Boolean) {
+@BindingAdapter("app:isVisible")
+fun isVisible(view: View, state: Boolean) {
     view.isVisible = state
 }
 

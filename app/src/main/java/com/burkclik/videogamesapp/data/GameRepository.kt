@@ -20,10 +20,6 @@ class GameRepository @Inject constructor(
         Resource.Success(it)
     }
 
-    fun fetchGamesLocal(): Flow<List<GameEntity>> = flow {
-        emit(gameLocalDataSource.getGames())
-    }
-
     fun searchGame(search: String?): Flow<List<GameEntity>> = flow {
         emit(gameLocalDataSource.searchGame(search))
     }

@@ -33,7 +33,7 @@ class GameUseCase @Inject constructor(
             }
             .onStart { emit(Resource.Loading) }
             .catch { emit(Resource.Error(it)) }
-            .flowOn(Dispatchers.Default)
+            .flowOn(Dispatchers.IO)
     }
 
     private suspend fun saveGames(games: GamesResponse) {
@@ -41,19 +41,11 @@ class GameUseCase @Inject constructor(
             .saveGames(gameEntityMapper.mapFrom(games))
     }
 
-    fun fetchGamesLocal(): Flow<List<Games>> {
-        return repository
-            .fetchGamesLocal()
-            .map {
-                gameEntityToGamesMapper.mapFrom(it)
-            }
-    }
-
     fun searchGames(search: String?): Flow<List<Games>> {
         return repository
             .searchGame(search)
             .map {
                 gameEntityToGamesMapper.mapFrom(it)
-            }.flowOn(Dispatchers.Default)
+            }.flowOn(Dispatchers.IO)
     }
 }

@@ -17,6 +17,18 @@
         android:orientation="vertical"
         tools:context=".ui.home.GameHomeFragment">
 
+        <androidx.core.widget.ContentLoadingProgressBar
+            android:id="@+id/contentLoadingProgressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            app:isVisible="@{viewModel.loadingState}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/textViewNoResult"
             android:layout_width="match_parent"
@@ -24,9 +36,9 @@
             android:gravity="center"
             android:text="Üzgünüz, aradığınız oyun bulunamadı!"
             android:textAlignment="center"
+            app:isVisible="@{viewModel.noResult}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/textInputLayoutSearch"
-            app:noResult="@{viewModel.viewPagerVisibility}"
             tools:visibility="visible" />
 
         <com.google.android.material.textfield.TextInputLayout

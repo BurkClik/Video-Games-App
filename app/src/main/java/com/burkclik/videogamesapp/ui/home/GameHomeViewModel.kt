@@ -20,30 +20,40 @@ class GameHomeViewModel @Inject constructor(
     private val _games: MutableLiveData<List<Games>> = MutableLiveData()
     val games: LiveData<List<Games>> = _games
 
-    val searchText: MutableLiveData<String?> = MutableLiveData("")
+    private val _loadingState: MutableLiveData<Boolean> = MutableLiveData()
+    val loadingState: LiveData<Boolean> = _loadingState
 
-    val _setVisibility: MutableLiveData<Boolean> = MutableLiveData()
-    val viewPagerVisibility: LiveData<Boolean> = _setVisibility
+    private val _noResult: MutableLiveData<Boolean> = MutableLiveData()
+    val noResult: LiveData<Boolean> = _noResult
+
+    val searchText: MutableLiveData<String?> = MutableLiveData("")
 
     val itemClickListener: (Games) -> Unit = {
         val action = GameHomeFragmentDirections.actionGameHomeFragmentToGameDetailFragment(it.id)
         navigation.navigate(action)
     }
 
+    private var permList: List<Games> = listOf()
+
     init {
         fetchGames()
     }
-
 
     private fun fetchGames() {
         viewModelScope.launch {
             gameUseCase.fetchGames().collect { resource ->
                 when (resource) {
-                    is Resource.Success -> _games.value = resource.data
+                    is Resource.Success -> {
+                        _games.value = resource.data
+                        permList = resource.data
+                        _loadingState.value = false
+                    }
                     is Resource.Error -> Log.i("Burak", "${resource.exception?.message}")
-                    Resource.Loading -> Log.i("Burak", "Loading")
+                    is Resource.Loading -> {
+                        _loadingState.value = true
+                        _noResult.value = false
+                    }
                 }
-
             }
         }
     }
@@ -51,7 +61,12 @@ class GameHomeViewModel @Inject constructor(
     fun searchGame(search: String?) {
         viewModelScope.launch {
             gameUseCase.searchGames(search).collect {
-                _games.value = it
+                if (searchText.value!!.length >= 3) {
+                    _games.value = it
+                    _noResult.value = it.isEmpty()
+                } else if (_games.value?.size != 20) {
+                    _games.value = permList
+                }
             }
         }
     }
