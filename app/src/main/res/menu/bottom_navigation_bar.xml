@@ -4,11 +4,11 @@
         android:id="@+id/gameHomeFragment"
         android:enabled="true"
         android:icon="@drawable/ic_home"
-        android:title="Home" />
+        android:title="@string/home" />
 
     <item
         android:id="@+id/favoriteFragment"
         android:enabled="true"
         android:icon="@drawable/ic_favorite"
-        android:title="Favoriler" />
+        android:title="@string/favorites" />
 </menu>
