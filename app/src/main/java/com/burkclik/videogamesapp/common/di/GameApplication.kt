@@ -1,4 +1,4 @@
-package com.burkclik.videogamesapp.common
+package com.burkclik.videogamesapp.common.di
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

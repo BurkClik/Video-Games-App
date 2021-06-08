@@ -26,14 +26,14 @@ class GameHomeViewModel @Inject constructor(
     private val _noResult: MutableLiveData<Boolean> = MutableLiveData()
     val noResult: LiveData<Boolean> = _noResult
 
+    private var permList: List<Games> = listOf()
+
     val searchText: MutableLiveData<String?> = MutableLiveData("")
 
     val itemClickListener: (Games) -> Unit = {
         val action = GameHomeFragmentDirections.actionGameHomeFragmentToGameDetailFragment(it.id)
         navigation.navigate(action)
     }
-
-    private var permList: List<Games> = listOf()
 
     init {
         fetchGames()

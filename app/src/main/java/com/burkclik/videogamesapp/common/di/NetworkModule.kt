@@ -1,5 +1,6 @@
-package com.burkclik.videogamesapp.common
+package com.burkclik.videogamesapp.common.di
 
+import com.burkclik.videogamesapp.common.BASE_URL
 import com.burkclik.videogamesapp.data.remote.api.ApiService
 import dagger.Module
 import dagger.Provides
