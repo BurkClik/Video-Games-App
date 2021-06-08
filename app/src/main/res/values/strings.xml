@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">VideoGamesApp</string>
     <string name="gameHomeSearchText">Search</string>
+    <string name="homeNoResultText">Üzgünüz, aradığınız oyun bulunamadı!</string>
 </resources>
