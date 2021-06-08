@@ -45,7 +45,9 @@ class GameUseCase @Inject constructor(
         return repository
             .searchGame(search)
             .map {
-                gameEntityToGamesMapper.mapFrom(it)
+                it.map { gameEntity ->
+                    gameEntityToGamesMapper.mapFrom(gameEntity)
+                }
             }.flowOn(Dispatchers.IO)
     }
 }

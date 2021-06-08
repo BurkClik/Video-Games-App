@@ -11,13 +11,15 @@ import javax.inject.Inject
 
 class FavoriteUseCase @Inject constructor(
     private val favoriteRepository: FavoriteRepository,
-    private val gamesEntityToGamesMapper: GameEntityToGamesMapper,
+    private val gameEntityToGamesMapper: GameEntityToGamesMapper,
 ) {
     fun getFavorites(): Flow<List<Games>> =
         favoriteRepository
             .fetchFavorites()
             .map {
-                gamesEntityToGamesMapper.mapFrom(it)
+                it.map { gameEntity ->
+                    gameEntityToGamesMapper.mapFrom(gameEntity)
+                }
             }
             .flowOn(Dispatchers.Default)
 }

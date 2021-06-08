@@ -5,16 +5,15 @@ import com.burkclik.videogamesapp.data.local.model.GameEntity
 import com.burkclik.videogamesapp.domain.model.Games
 import javax.inject.Inject
 
-class GameEntityToGamesMapper @Inject constructor() : Mapper<List<GameEntity>, List<Games>> {
-    override fun mapFrom(type: List<GameEntity>): List<Games> {
-        return type.map {
-            Games(
-                id = it.id,
-                name = it.name,
-                released = it.released,
-                backgroundImage = it.backgroundImage,
-                rating = it.rating.toString(),
-            )
-        }
+class GameEntityToGamesMapper @Inject constructor() : Mapper<GameEntity, Games> {
+    override fun mapFrom(type: GameEntity): Games {
+        return Games(
+            id = type.id,
+            favorite = type.favorite,
+            name = type.name,
+            released = type.released,
+            backgroundImage = type.backgroundImage,
+            rating = type.rating.toString(),
+        )
     }
 }

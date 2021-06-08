@@ -4,7 +4,7 @@ import com.burkclik.videogamesapp.common.Resource
 import com.burkclik.videogamesapp.common.map
 import com.burkclik.videogamesapp.data.GameDetailRepository
 import com.burkclik.videogamesapp.domain.mapper.GameDetailMapper
-import com.burkclik.videogamesapp.domain.mapper.GameEntityToGames
+import com.burkclik.videogamesapp.domain.mapper.GameEntityToGamesMapper
 import com.burkclik.videogamesapp.domain.model.GameDetail
 import com.burkclik.videogamesapp.domain.model.Games
 import kotlinx.coroutines.Dispatchers
@@ -18,7 +18,7 @@ import javax.inject.Inject
 class GameDetailUseCase @Inject constructor(
     private val gameDetailRepository: GameDetailRepository,
     private val gameDetailMapper: GameDetailMapper,
-    private val gameEntityToGamesMapper: GameEntityToGames,
+    private val gameEntityToGamesMapperMapper: GameEntityToGamesMapper,
 ) {
     fun fetchDetailGame(movieId: Int): Flow<Resource<GameDetail>> {
         return gameDetailRepository
@@ -36,7 +36,7 @@ class GameDetailUseCase @Inject constructor(
     fun getGameById(gameId: Int): Flow<Games> = gameDetailRepository
         .getGameById(gameId)
         .map {
-            gameEntityToGamesMapper.mapFrom(it)
+            gameEntityToGamesMapperMapper.mapFrom(it)
         }
         .flowOn(Dispatchers.Default)
 
