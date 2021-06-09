@@ -18,7 +18,7 @@ import javax.inject.Inject
 class GameDetailUseCase @Inject constructor(
     private val gameDetailRepository: GameDetailRepository,
     private val gameDetailMapper: GameDetailMapper,
-    private val gameEntityToGamesMapperMapper: GameEntityToGamesMapper,
+    private val gameEntityToGamesMapper: GameEntityToGamesMapper,
 ) {
     fun fetchDetailGame(movieId: Int): Flow<Resource<GameDetail>> {
         return gameDetailRepository
@@ -36,7 +36,7 @@ class GameDetailUseCase @Inject constructor(
     fun getGameById(gameId: Int): Flow<Game> = gameDetailRepository
         .getGameById(gameId)
         .map {
-            gameEntityToGamesMapperMapper.mapFrom(it)
+            gameEntityToGamesMapper.mapFrom(it)
         }
         .flowOn(Dispatchers.Default)
 

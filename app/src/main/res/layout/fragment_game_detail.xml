@@ -43,7 +43,7 @@
             android:layout_margin="16dp"
             android:button="@drawable/favorite_icon_state"
             android:checked="@{viewModel.favoriteState}"
-            android:onClick="@{() -> viewModel.showInfo()}"
+            android:onClick="@{() -> viewModel.addFavorite()}"
             app:layout_constraintBottom_toBottomOf="@id/imageViewGame"
             app:layout_constraintEnd_toEndOf="@id/imageViewGame" />
 

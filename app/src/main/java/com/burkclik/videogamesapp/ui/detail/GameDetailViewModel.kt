@@ -1,6 +1,5 @@
 package com.burkclik.videogamesapp.ui.detail
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -62,13 +61,9 @@ class GameDetailViewModel @Inject constructor(
         }
     }
 
-    fun showInfo() {
+    fun addFavorite() {
         viewModelScope.launch {
-            try {
-                gameDetailUseCase.updateFavorite(!_favoriteState.value!!, gameId)
-            } catch (exception: Exception) {
-                Log.i("Burak", "${exception.message}")
-            }
+            gameDetailUseCase.updateFavorite(!_favoriteState.value!!, gameId)
         }
     }
 }

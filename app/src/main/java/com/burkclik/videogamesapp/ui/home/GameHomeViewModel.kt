@@ -41,7 +41,7 @@ class GameHomeViewModel @Inject constructor(
         fetchGames()
     }
 
-    private fun fetchGames() {
+    fun fetchGames() {
         viewModelScope.launch {
             gameUseCase.fetchGames().collect { resource ->
                 when (resource) {

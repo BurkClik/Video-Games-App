@@ -8,9 +8,6 @@ import com.burkclik.videogamesapp.data.local.model.GameEntity
 
 @Dao
 interface GameDao {
-    @Query("SELECT * FROM games")
-    suspend fun getAllGames(): List<GameEntity>
-
     @Query("SELECT * FROM games WHERE name LIKE '%' || :search || '%'")
     suspend fun searchGame(search: String?): List<GameEntity>
 
